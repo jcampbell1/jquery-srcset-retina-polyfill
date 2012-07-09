@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<style>
+body {
+	
+}
+img {
+	border:3px solid #f90;
+}
+</style>
+<script src="jquery-1.7.1.min.js"></script>
+<script src="../jquery.srcset.js"></script>
+
+<script>
+var c = 0;
+function assertEqual(a,b) {
+	c++;
+	if(a !== b) {
+		console.log('Assertion ' + c + ' invaid',a,b);
+	}
+}
+$(function(){
+	assertEqual($.parseSrcset('http://example.com/img.png 2x').length,1);
+	assertEqual($.parseSrcset('http://example.com/img.png 2x')[0].url,'http://example.com/img.png');
+	assertEqual($.parseSrcset('http://example.com/img.png 2x')[0].ratio,2.0);
+	
+	assertEqual($.parseSrcset(' http://example.com/img.png 2x , http://example.com/img.png 2x ').length,2);
+	assertEqual($.parseSrcset(' http://example.com/img.png 2.0x , http://example.com/img.png 1.5x ')[0].ratio,1.5);
+	assertEqual($.parseSrcset(' http://example.com/img.png 1.5x , http://example.com/img.png 2.0x ')[0].ratio,1.5);
+	assertEqual($.parseSrcset(' http://example.com/img.png 2.0x , http://example.com/img.png 1.5x ')[1].ratio,2);
+	assertEqual($.parseSrcset(' http://example.com/img.png 2.0x , http://example.com/img.png 150w ').length,1);
+	assertEqual($.parseSrcset(' http://example.com/img.png 2.0x , http://example.com/img.png 150w ')[0].ratio,2.0);
+	
+	assertEqual($.parseSrcset('').length,0);
+	assertEqual($.parseSrcset('  ').length,0);
+	assertEqual($.parseSrcset('adsf').length,0);
+	assertEqual($.parseSrcset('http://example.com/img.png').length,0);
+	assertEqual($.parseSrcset('http://example.com/img.png 100h').length,0);
+	assertEqual($.parseSrcset('http://example.com/img.png 200w').length,0);
+	
+	$('#pr').text( window.devicePixelRatio);
+});
+
+</script>
+</head>
+<body>
+	<h2>Your Device Pixel Ratio: <span id="pr"></span></h2>
+	<h3>&lt;img src="image.png" srcset="image@2x.png 2x, image@1.5x.png 1.5x, image@10x.png 10x" width=200 height=200 /&gt;</h3>
+		<img src="image.png" srcset="image@2x.png 2x, image@1.5x.png 1.5x, image@10x.png 10x" width=200 height=200 />
+	<h3>&lt;img src="image.png" srcset="image@2x.png 2x" width=200 height=200 /&gt;</h3>
+	<img src="image.png" srcset="image@2x.png 2x" width=200 height=200 />
+	
+</body>
+</html>
