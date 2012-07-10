@@ -40,12 +40,18 @@ $(function(){
 	assertEqual($.parseSrcset('http://example.com/img.png 200w').length,0);
 	
 	$('#pr').text( window.devicePixelRatio);
+	$('img').srcset();
+	$('#test').click(function() {
+		$('img').srcset( parseFloat($('#dpr').val()) );
+		return false;
+	});
 });
 
 </script>
 </head>
 <body>
 	<h2>Your Device Pixel Ratio: <span id="pr"></span></h2>
+	<h3>Simulate different device pixel ratio: <input type="number" value="1.5" size=3 id="dpr" /> <input type="submit" value="test" id="test" />
 	<h3>&lt;img src="image.png" srcset="image@2x.png 2x, image@1.5x.png 1.5x, image@10x.png 10x" width=200 height=200 /&gt;</h3>
 		<img src="image.png" srcset="image@2x.png 2x, image@1.5x.png 1.5x, image@10x.png 10x" width=200 height=200 />
 	<h3>&lt;img src="image.png" srcset="image@2x.png 2x" width=200 height=200 /&gt;</h3>
