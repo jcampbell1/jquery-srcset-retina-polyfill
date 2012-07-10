@@ -38,6 +38,8 @@ $(function(){
 	assertEqual($.parseSrcset('http://example.com/img.png').length,0);
 	assertEqual($.parseSrcset('http://example.com/img.png 100h').length,0);
 	assertEqual($.parseSrcset('http://example.com/img.png 200w').length,0);
+	var $i = $('img.nothing');
+	assertEqual($i, $i.srcset()); // test chaining
 	
 	$('#pr').text( window.devicePixelRatio);
 	$('img').srcset();
@@ -56,6 +58,8 @@ $(function(){
 		<img src="image.png" srcset="image@2x.png 2x, image@1.5x.png 1.5x, image@10x.png 10x" width=200 height=200 />
 	<h3>&lt;img src="image.png" srcset="image@2x.png 2x" width=200 height=200 /&gt;</h3>
 	<img src="image.png" srcset="image@2x.png 2x" width=200 height=200 />
+	<h3>&lt;img src="image.png" width=200 height=200 /&gt;</h3>
+	<img src="image.png" width=200 height=200 />
 	
 </body>
 </html>

@@ -2,17 +2,15 @@
 	// returns an array of objects of the form {url: 'image_url', ratio: float }
 	//   array is sorted in asending order by the pixel ratio
 	$.parseSrcset = function(text) {
-		var result = [];
-		var text = $.trim(text);
-		var items = text.split(',');
+		var result = [],
+		 	 items = $.trim(text).split(',');
 		for(var i = 0; i< items.length; i++) {
 			var img = $.trim(items[i]).split(/\s+/);
 			if (img.length < 2) 
 				continue;
 			var r = { url: img[0] };
-			if(img[1].substr(-1,1) == 'x') {
+			if(img[1].substr(-1,1) == 'x')
 				r.ratio = parseFloat( img[1].substr(0,img[1].length -1) );
-			}
 			r.ratio && result.push(r);
 		}
 		result.sort(function(a,b) {
